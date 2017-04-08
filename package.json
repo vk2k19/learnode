@@ -2,11 +2,21 @@
   "name": "learn.node",
   "version": "1.0.0",
   "description": "An introductory session for node.js",
-  "main": "index.js",
+  "main": "app/js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha app/tests -w"
   },
-  "keywords": ["learn", "node", "javascript", "server"],
-  "author": "",
+  "keywords": ["learn", "node", "javascript", "server", "unit testing", "testable javascript", "CODE for HUMAN"],
+	"devDependencies": {
+    "chai": "*",
+    "karma": "*",
+    "karma-chai": "*",
+    "karma-chai-sinon": "^0.1.5",
+    "karma-mocha": "*",
+    "karma-sinon": "^1.0.5",
+    "mocha": "*",
+    "sinon": "^2.1.0"
+  },
+  "author": "VJ",
   "license": "ISC"
 }
