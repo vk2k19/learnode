@@ -4,7 +4,9 @@
   "description": "An introductory session for node.js",
   "main": "app/js/index.js",
   "scripts": {
-    "test": "mocha app/tests -w"
+    "test": "mocha app/tests -w",
+		"prestart": "mocha app/tests",
+		"start": "node app/js/index"
   },
   "keywords": ["learn", "node", "javascript", "server", "unit testing", "testable javascript", "CODE for HUMAN"],
 	"devDependencies": {
