@@ -62,7 +62,11 @@ describe('As a user I want to dynamically request add, whthout doing a mannually
 
 		it('Given no user input should log error and message on how to add', function () {
 			let result = reqProcessor.processRequests([]);
-			expect(result).to.be.error;
+
+			expect(result).to.have.keys('totalRequest', 'result');
+			expect(result).to.have.property('totalRequest', 0);
+			expect(result.result).to.be.instanceOf(Array);
+			expect(result.result).to.have.lengthOf(0);
 			expect(spiedConsole.calledTwice).to.be.true;
 		});
 
@@ -75,7 +79,7 @@ describe('As a user I want to dynamically request add, whthout doing a mannually
 		});
 	});
 
-	describe('process user input', function () {
+	describe('process each user request', function () {
 		beforeEach(function () {
 			spiedConsole = sinon.stub(reqProcessor, 'log');
 		});
@@ -86,7 +90,7 @@ describe('As a user I want to dynamically request add, whthout doing a mannually
 
 		it('Given no user input should return error', function () {
 			let result = reqProcessor.process();
-			expect(result).to.be.error;
+			expect(result).to.be.an.instanceof(Error);
 			expect(spiedConsole.calledOnce).to.be.true;
 		});
 

@@ -14,6 +14,7 @@ module.exports = class requestProcessor {
 		return this;
 	}
 	processRequests(requests) {
+		let results = [];
 		if (requests.length === 0) {
 			this.log(`No input provided. Expecting input while execution of program.`, true);
 			this.log(`npm start add num1 num2 [add num1 num2, [...]], We can do multiple two number addition for you.`, true);
@@ -22,8 +23,18 @@ module.exports = class requestProcessor {
 			requests.forEach((request) => {
 				let result = this.process(request);
 				this.log(`${request.join(' + ')} = ${result}`);
+				results.push({
+					number1: request[0],
+					number2: request[1],
+					result: (result instanceof Error) ? result.message : result
+				});
 			});
 		}
+
+		return {
+			totalRequest: requests.length,
+			result: results
+		};
 	}
 	getRequests(processArgs) {
 		let requests = [], addRequestFound = false,
@@ -51,7 +62,7 @@ module.exports = class requestProcessor {
 		let [num1, num2] = args;
 		if (Boolean(num1) === false || Boolean(num2) === false) {
 			this.log(`Invalid request to add ${num1} and ${num2}.`, true);
-			return new Error('Invalid request');
+			return new Error(`Invalid request to add ${num1} and ${num2}.`);
 		} else {
 			this.log(`Add ${num1} and ${num2}.`, false);
 			return adder(num1, num2);

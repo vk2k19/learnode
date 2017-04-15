@@ -3,12 +3,25 @@
  * Use: app bootsrtapping
  */
 'use strict';
-const ReqProcessor = require('./requestProcessor');
+const server = require('./server');
 
+if (server.listening === false) {
+	server.listen({
+		port: 8002
+	});
+}
 
-let rp = new ReqProcessor();
+console.log(`App server is running at ${JSON.stringify(server.address())}`);
 
-let requests = rp.getRequests(process.argv);
-rp.processRequests(requests);
-
-module.exports = (name = 'lEarNode') => this.name = name;
+module.exports = class app {
+	constructor(name = 'learNode') {
+		this.name = name;
+		this.server = server;
+	}
+	getServer() {
+		return this.server;
+	}
+	closeServer() {
+		this.server.close();
+	}
+}
