@@ -5,32 +5,10 @@
 
 const HTTP = require('http');
 const router = require('./router');
-const fs = require('fs');
+const logs = require('./logger');
 const URL = require('url');
 
 const server = HTTP.createServer((req, res) => {
-	if (req.headers.accept.toLowerCase().indexOf('json') === -1 && req.headers.accept.toLowerCase().indexOf('*/*') === -1) {
-		renderView(req, res);
-	} else {
-		respondWithJSON(req, res);
-	}
-});
-
-
-function renderView(req, res) {
-	let reqUrl = URL.parse(req.url);
-	/* start sending data */
-	res.writeHead(200, { 'Content-Type': 'text/html' });
-	let data = fs.readFileSync(reqUrl.pathName);
-
-	if (data) {
-		res.end(data);
-	} else {
-		res.end('/view/404');
-	}
-};
-
-function respondWithJSON(req, res) {
 	let response = {
 		url: req.url,
 		status: 'success',
@@ -47,9 +25,20 @@ function respondWithJSON(req, res) {
 	}
 
 	response.data = JSON.stringify(data);
+	/*create a log for complete request handling */
+	logs([
+		'\n',
+		new Date(),
+		'-----',
+		`request for: ${req.url}`,
+		JSON.stringify(req.headers),
+		response.data,
+		'======']
+	);
+
 	/* start sending data */
 	res.writeHead(200, { 'Content-Type': 'application/json' });
 	res.end(JSON.stringify(response));
-}
+});
 
 module.exports = server;
