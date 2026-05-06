@@ -5,19 +5,27 @@
   "main": "app/js/index.js",
   "scripts": {
     "test": "mocha app/tests -w",
-		"prestart": "mocha app/tests",
-		"start": "node app/js/index"
+    "prestart": "mocha app/tests",
+    "start": "node app/js/index"
   },
-  "keywords": ["learn", "node", "javascript", "server", "unit testing", "testable javascript", "CODE for HUMAN"],
-	"devDependencies": {
-    "chai": "*",
-    "karma": "*",
-    "karma-chai": "*",
+  "keywords": [
+    "learn",
+    "node",
+    "javascript",
+    "server",
+    "unit testing",
+    "testable javascript",
+    "CODE for HUMAN"
+  ],
+  "devDependencies": {
+    "chai": "^6.2.2",
+    "karma": "^6.4.4",
+    "karma-chai": "^0.1.0",
     "karma-chai-sinon": "^0.1.5",
-    "karma-mocha": "*",
+    "karma-mocha": "^2.0.1",
     "karma-sinon": "^1.0.5",
-    "mocha": "*",
-    "sinon": "^2.1.0"
+    "mocha": "^11.7.5",
+    "sinon": "^2.4.1"
   },
   "author": "VJ",
   "license": "ISC"
